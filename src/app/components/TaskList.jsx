@@ -1,14 +1,21 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { requestTaskCreation } from '../store/mutations';
+import { Link } from 'react-router-dom';
 
-export const TaskList = ({tasks, groupName}) => (
+export const TaskList = ({tasks, groupName, id, createNewTask}) => (
   <Fragment>
     <div>
       <h3>{groupName}</h3>
     </div>
     <div>
-      { tasks.map(task => (<div key={task.id}>{task.name}</div>)) }
+      { tasks.map(task => (
+        <Link to={`/task/${task.id}`} key={task.id}>
+          <div>{task.name}</div>
+        </Link>
+      )) }
     </div>
+    <button onClick={() => createNewTask(id)}>Create new</button>
   </Fragment>
 );
 
@@ -22,4 +29,13 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export const ConnectedTaskList = connect(mapStateToProps)(TaskList);
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    createNewTask(id) {
+      console.log('create new task...');
+      dispatch(requestTaskCreation(id));
+    }
+  }
+}
+
+export const ConnectedTaskList = connect(mapStateToProps, mapDispatchToProps)(TaskList);
