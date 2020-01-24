@@ -1,7 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const dbName = 'todoapp';
-const url = `mongodb://localhost:27017/${dbName}`;
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/todoapp';
 let db = null;
 
 export async function connectDB() {
@@ -9,6 +8,6 @@ export async function connectDB() {
 
   const client = await MongoClient.connect(url, { useNewUrlParser: true });
   db = client.db();
-  console.log('DB is ', db);
+
   return db;
 }

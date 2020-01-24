@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack",
+    "start": "npm run server",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run dev\"",
     "dev": "webpack-dev-server --open",
     "initialize": "babel-node src/server/initializeDB",
-    "server": "babel-node src/server/server",
-    "start-dev": "concurrently \"npm run server\" \"npm run dev\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cross-env NODE_ENV=production babel-node src/server/server",
+    "server-dev": "babel-node src/server/server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -p"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +29,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "^3.5.2",
+    "react-router": "^5.1.2",
     "redux": "^4.0.5",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
@@ -34,6 +37,7 @@
   },
   "dependencies": {
     "history": "^4.10.1",
+    "md5": "^2.2.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
