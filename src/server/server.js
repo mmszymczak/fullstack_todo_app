@@ -2,8 +2,8 @@ import path from 'path';
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { connectDB } from './connectDB';
 import { authenticationRoute } from './authenticate';
+import { addNewTask, updateTask } from './controller';
 import './initializeDB';
 
 const port = process.env.PORT || 3003;
@@ -21,30 +21,6 @@ if (process.env.NODE_ENV == 'production') {
     res.sendFile(path.resolve('index.html'));
   });
 }
-
-export const addNewTask = async task => {
-  const db = await connectDB();
-  const collection = db.collection('tasks');
-  await collection.insertOne(task);
-};
-
-export const updateTask = async task => {
-  const { id, group, isComplete, name } = task;
-  const db = await connectDB();
-  const collection = db.collection('tasks');
-
-  if (group) {
-    await collection.updateOne({id}, {$set: {group}});
-  }
-
-  if (name) {
-    await collection.updateOne({id}, {$set: {name}});
-  }
-
-  if (isComplete !== undefined) {
-    await collection.updateOne({id}, {$set: {isComplete}});
-  }
-};
 
 app.post('/task/new', async (req, res) => {
   const task = req.body.task;

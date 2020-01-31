@@ -10,7 +10,9 @@ import { ConnectedTaskDetail } from './TaskDetail';
 import { Redirect } from 'react-router';
 
 const RouteGuard = Component => ({match}) => {
-  if (!store.getState().session.authenticated) {
+  const state = store.getState();
+
+  if (state.session && !state.session.authenticated) {
     return <Redirect to="/" />
   } else {
     return <Component match={match} />

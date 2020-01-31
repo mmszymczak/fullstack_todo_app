@@ -18,7 +18,7 @@ export const Login = ({authenticateUser, authenticated}) => (
   </Fragment>
 );
 
-const mapStateToProps = ({session}) => ({
+const mapStateToProps = ({session = {}}) => ({
   authenticated: session.authenticated
 });
 

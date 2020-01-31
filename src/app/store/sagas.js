@@ -35,7 +35,7 @@ export function* taskCreationSaga() {
         group: groupId,
         owner: ownerId,
         isComplete: false,
-        name: 'New taskkkk'
+        name: `New task - ${taskId}`
       }
     });
   }
